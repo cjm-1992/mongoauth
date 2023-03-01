@@ -30,7 +30,7 @@ app.use(cors());
 // adding morgan to log HTTP requests
 app.use(morgan("combined"));
 
-app.post("auth", async (req, res) => {
+app.post("/auth", async (req, res) => {
   const user = await User.findOne({userName: req.body.userName})
   
   if (!user) {
