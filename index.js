@@ -32,7 +32,17 @@ app.use(morgan("combined"));
 
 app.post("auth", async (req, res) => {
   const user = await User.findOne({userName: req.body.userName})
-  res.send(user)
+  
+  if (!user) {
+    return res.status(401).send({message: "User not found"})
+  }
+  if (user.password !== req.body.password) {
+    return res.status(401).send({message: "Password incorrect"})
+  }
+
+  res.send({
+    token: "secretstring"
+  })
 })
 
 //authenticating
